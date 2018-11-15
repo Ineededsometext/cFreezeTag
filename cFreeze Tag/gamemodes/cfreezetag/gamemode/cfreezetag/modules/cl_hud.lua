@@ -4,7 +4,7 @@ function FRZ.HUDPaint()
     end
 
     for _, ply in pairs( player.GetAll() ) do
-        if ( ply != LocalPlayer() and ply:GetMoveType() != MOVETYPE_NOCLIP or ply == FRZ.Freezer ) then
+        if ( LocalPlayer() != FRZ.Freezer and ply != LocalPlayer() and ply:GetMoveType() != MOVETYPE_NOCLIP or ply == FRZ.Freezer ) then
             local pos = ply:GetPos()
 
             pos.z = pos.z + ply:OBBMaxs().z
