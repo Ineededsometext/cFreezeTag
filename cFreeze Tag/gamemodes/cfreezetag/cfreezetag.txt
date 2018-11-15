@@ -1,0 +1,7 @@
+"cfreezetag"
+{
+	"base"		"base"
+	"title"		"cFreeze Tag"
+	"maps"		"^ft_, ^ice_, ^tag_, ^gm_, ^rp_"
+	"menusystem"	"1"
+}

@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "cfreeze_tag/textures/ice"
+
+	"$envmap" "env_cubemap"
+	"$surfaceprop" "ice"
+	"$halflambert" "1"
+
+	"$selfillum" "1"
+	"$selfIllumFresnel" "1"
+
+	"$half" "0.5"
+}
