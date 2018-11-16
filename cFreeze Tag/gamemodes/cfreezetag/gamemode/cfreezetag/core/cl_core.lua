@@ -84,3 +84,12 @@ net.Receive( "Ability" , function()
         FRZ.AbilityIcon = " "
     end
 end )
+
+local hide = {
+	["CHudHealth"] = true,
+	["CHudBattery"] = true
+}
+
+function GM:HUDShouldDraw( type )
+	if ( hide[ type ] ) then return false end
+end
