@@ -1,5 +1,6 @@
 # cFreezeTag
 A customizable freeze tag gamemode.
+This gamemode is a complete rewrite from scratch of the already existing freeze tag gamemode.
 
 # Installing cFreezeTag
 1. Download cFreezeTag using the Clone or Download button.
