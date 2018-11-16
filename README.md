@@ -11,6 +11,8 @@ This gamemode is a complete rewrite from scratch of the already existing freeze 
 # Getting cFreezeTag
 You can get cFreezeTag by clicking the clone or download button.
 
+The github repository will be updated much sooner than the workshop version.
+
 [Here's the workshop version](https://github.com/Ineededsometext/cFreezeTag/archive/master.zip)
 
 
