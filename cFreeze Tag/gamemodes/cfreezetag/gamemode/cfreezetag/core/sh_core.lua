@@ -8,6 +8,9 @@ function GM:Initialize()
 end
 
 function GM:PlayerInitialSpawn( ply )
+    ply:SetNWInt( "Freezes", 0 )
+    ply:SetNWInt( "Thaws", 0 )
+
     if ( CLIENT ) then return end
 
     if ( FRZ.RoundStatus == ROUND_IN_PROGRESS ) then
@@ -109,6 +112,8 @@ function FRZ.Freeze( ply, freezer )
     if ( CLIENT ) then return end
     if ( ply.Frozen or ply.NextAction > CurTime() or ply == freezer or timer.Exists( "Un-Blind Freezer" ) ) then return end
 
+    freezer:SetNWInt( "Freezes", freezer:GetNWInt( "Freezes" ) + 1 )
+
     ply:EmitSound( "cfreeze_tag/freeze.wav" )
 
     Spectator( ply )
@@ -130,6 +135,8 @@ end
 function FRZ.Thaw( ply, thawer )
     if ( CLIENT ) then return end
     if ( !ply.Frozen or ply.NextAction > CurTime() or ply == thawer or thawer.Frozen or ply == FRZ.Freezer ) then return end
+
+    thawer:SetNWInt( "Thaws", thawer:GetNWInt( "Thaws" ) + 1 )
 
     ply:SetMaterial( "" )
     ply:EmitSound( "cfreeze_tag/thaw.wav" )

@@ -4,7 +4,7 @@ Ability.Team = TEAM_BOTH
 
 Ability.Uses = 1
 Ability.OnCast = function( ply, tr )
-    if ( CLIENT ) then return end
+    if ( CLIENT or ply.Frozen ) then return end
 
     local snowball = ents.Create( "snowball" )
     snowball:SetPos( ply:EyePos() + ( ply:GetAimVector() * 16 ) )
