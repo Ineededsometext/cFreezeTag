@@ -7,5 +7,5 @@ Ability.OnCast = function( ply, tr )
     if ( CLIENT ) then return end
 
     local Ang = ply:EyeAngles():Forward()
-    ply:SetVelocity( Ang * 2500 )
+    ply:SetVelocity( Ang * 1000 )
 end

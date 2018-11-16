@@ -5,6 +5,8 @@ FRZ.Stamina = 0
 FRZ.StaminaLerp = 0
 FRZ.AbilityName = ""
 FRZ.AbilityIcon = "000"
+FRZ.Scoreboard = false
+FRZ.PlayerAvatars = {}
 
 surface.CreateFont( "RoundInfo", {
     font = "calibri",
@@ -19,6 +21,33 @@ surface.CreateFont( "RoundTime", {
     antialiasing = true,
     shadow = true
 } )
+
+surface.CreateFont( "Leaderboard", {
+    font = "Calibri",
+    size = ScreenScale( 10 ),
+    antialiasing = true
+} )
+
+net.Receive( "AbilityCD", function()
+    FRZ.OnCooldown = net.ReadBool()
+    FRZ.AbilityCooldown = net.ReadFloat()
+end )
+
+function GM:HUDPaint()
+    FRZ.HUDPaint()
+end
+
+function GM:ScoreboardHide()
+	FRZ.Scoreboard = false
+	
+    for _, avatar in pairs( FRZ.PlayerAvatars ) do
+        avatar:Remove()
+    end
+end
+
+function GM:ScoreboardShow()
+	FRZ.Scoreboard = true
+end
 
 net.Receive( "Blind", function()
     FRZ.Blinded = true
@@ -55,12 +84,3 @@ net.Receive( "Ability" , function()
         FRZ.AbilityIcon = " "
     end
 end )
-
-net.Receive( "AbilityCD", function()
-    FRZ.OnCooldown = net.ReadBool()
-    FRZ.AbilityCooldown = net.ReadFloat()
-end )
-
-function GM:HUDPaint()
-    FRZ.HUDPaint()
-end

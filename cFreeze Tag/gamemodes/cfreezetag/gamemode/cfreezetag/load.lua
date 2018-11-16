@@ -90,7 +90,7 @@ local function LoadAbilities( dir )
 			FRZ.Abilities[ "Freezer" ][ class ] = Ability
 		elseif ( Ability.Team == TEAM_RUNNER ) then
 			FRZ.Abilities[ "Runner" ][ class ] = Ability
-		else
+		elseif ( class != "example" ) then
 			FRZ.Abilities[ "Freezer" ][ class ] = Ability
 			FRZ.Abilities[ "Runner" ][ class ] = Ability
 		end
