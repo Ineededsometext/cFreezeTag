@@ -191,11 +191,17 @@ function FRZ.StartRound( Time, BlindTime, Intermission )
         for _, ply in pairs( player.GetAll() ) do
             net.Start( "AbilityCD" )
                 net.WriteBool( timer.Exists( "Ability Cooldown " .. ply:EntIndex() ) )
-
-                if ( timer.Exists( "Ability Cooldown " .. ply:EntIndex() ) ) then
-                    net.WriteFloat( timer.TimeLeft( "Ability Cooldown " .. ply:EntIndex() ) )
-                end
+                net.WriteFloat( timer.TimeLeft( "Ability Cooldown " .. ply:EntIndex() ) or 0 )
             net.Send( ply )
+        end
+
+        if ( FRZ.StaminaEnabled ) then
+            for _, ply in pairs( player.GetAll() ) do
+                net.Start( "Stamina" )
+                    net.WriteFloat( ply.Stamina )
+                    net.WriteBool( ply.VeryTired )
+                net.Send( ply )
+            end
         end
         
         if ( FRZ.AbilitiesEnabled ) then
@@ -302,6 +308,7 @@ if ( SERVER ) then
     util.AddNetworkString( "Timers" )
     util.AddNetworkString( "Ability" )
     util.AddNetworkString( "AbilityCD" )
+    util.AddNetworkString( "Stamina" )
 end
 
 function CheckCollision( ply )

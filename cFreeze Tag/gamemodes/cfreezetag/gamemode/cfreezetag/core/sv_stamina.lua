@@ -84,17 +84,3 @@ hook.Add( "Think", "Stamina Handler", function()
         num = time
     end
 end )
-
--- Networking for the client to draw the information.
-util.AddNetworkString( "Stamina" )
-
-timer.Create( "Stamina Data", 0.1, 0, function()
-    if ( !FRZ.StaminaEnabled ) then timer.Destroy( "Stamina Data" ) return end
-
-    for _, ply in pairs( player.GetAll() ) do
-        net.Start( "Stamina" )
-            net.WriteFloat( ply.Stamina )
-            net.WriteBool( ply.VeryTired )
-        net.Send( ply )
-    end
-end )

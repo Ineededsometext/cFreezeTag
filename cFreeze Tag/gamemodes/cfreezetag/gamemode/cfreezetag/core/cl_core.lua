@@ -28,10 +28,18 @@ surface.CreateFont( "Leaderboard", {
     antialiasing = true
 } )
 
-net.Receive( "AbilityCD", function()
-    FRZ.OnCooldown = net.ReadBool()
-    FRZ.AbilityCooldown = net.ReadFloat()
-end )
+local hide = {
+	["CHudHealth"] = true,
+	["CHudBattery"] = true
+}
+
+function GM:HUDShouldDraw( type )
+	if ( hide[ type ] ) then 
+        return false 
+    else
+        return true
+    end
+end
 
 function GM:HUDPaint()
     FRZ.HUDPaint()
@@ -85,11 +93,7 @@ net.Receive( "Ability" , function()
     end
 end )
 
-local hide = {
-	["CHudHealth"] = true,
-	["CHudBattery"] = true
-}
-
-function GM:HUDShouldDraw( type )
-	if ( hide[ type ] ) then return false end
-end
+net.Receive( "AbilityCD", function()
+    FRZ.OnCooldown = net.ReadBool()
+    FRZ.AbilityCooldown = net.ReadFloat()
+end )
