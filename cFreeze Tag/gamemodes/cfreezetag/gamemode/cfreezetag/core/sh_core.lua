@@ -206,8 +206,10 @@ function FRZ.StartRound( Time, BlindTime, Intermission )
         if ( FRZ.StaminaEnabled ) then
             for _, ply in pairs( player.GetAll() ) do
                 net.Start( "Stamina" )
-                    net.WriteFloat( ply.Stamina )
-                    net.WriteBool( ply.VeryTired )
+		    if ( ply.Stamina != nil and ply.VeryTired != nil ) then
+                        net.WriteFloat( ply.Stamina )
+                        net.WriteBool( ply.VeryTired )
+		    end
                 net.Send( ply )
             end
         end
