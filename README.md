@@ -22,5 +22,5 @@ The github repository will be updated much sooner than the workshop version.
 1. Download cFreezeTag using the clone or download button.
 2. Extract the ZIP file.
 3. Go to your garry's mod folder.
-4. Drag and drop the content of the ZIP file into to the addons folder.
+4. Find the "cFreeze Tag" folder and move it to your addons folder.
 5. Re-launch your Garry's Mod.
