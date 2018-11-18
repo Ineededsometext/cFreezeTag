@@ -95,5 +95,4 @@ end )
 
 net.Receive( "AbilityCD", function()
     FRZ.OnCooldown = net.ReadBool()
-    FRZ.AbilityCooldown = net.ReadFloat()
 end )

@@ -14,7 +14,7 @@ IMPORTANT VARIABLES:
     * FRZ.Time - The time of the round.
     * FRZ.Freezer - The current freezer.
     * FRZ.AbilityName - The name of the ability LocalPlayer() has.
-    * FRZ.AbilityCooldown - The cooldown until LocalPlayer() gets a new ability.
+    * LocalPlayer():GetNWInt( "Ability Cooldown" ) - The cooldown until LocalPlayer() gets a new ability.
     * FRZ.OnCooldown - LocalPlayer()'s ability is on cooldown.
     * FRZ.VeryTired - If the player gets 0 stamina and won't be able to sprint until refreshing the stamina bar.
     
@@ -95,7 +95,7 @@ function FRZ.HUDPaint()
 
         draw.DrawText( FRZ.AbilityName, "RoundInfo", ScrW() * 0.9215, ScrH() * 0.95, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER )
     elseif ( FRZ.AbilitiesEnabled and FRZ.RoundStatus == ROUND_IN_PROGRESS ) then
-        draw.DrawText( math.Round( FRZ.AbilityCooldown ), "RoundTime", ScrW() * 0.9215, ScrH() * 0.9, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER )
+        draw.DrawText( math.Round( LocalPlayer():GetNWInt( "Ability Cooldown" ) ), "RoundTime", ScrW() * 0.9215, ScrH() * 0.9, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER )
 
         draw.DrawText( "NEXT ABILITY", "RoundInfo", ScrW() * 0.9215, ScrH() * 0.95, Color( 255, 255, 255, 255 ), TEXT_ALIGN_CENTER )
     end

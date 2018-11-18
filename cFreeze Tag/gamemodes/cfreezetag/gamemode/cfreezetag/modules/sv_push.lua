@@ -1,4 +1,4 @@
-if ( FRZ.PushEnabled or 1 == 2 ) then
+if ( FRZ.PushEnabled ) then
 	local Sounds = {
 		"physics/body/body_medium_impact_hard1.wav",
 		"physics/body/body_medium_impact_hard2.wav",
@@ -12,7 +12,7 @@ if ( FRZ.PushEnabled or 1 == 2 ) then
 
 	local RecentPush = {}
 		
-	hook.Add( "KeyPress", "ussy ussy ur a pussy", function( ply, key )
+	hook.Add( "KeyPress", "cFreeze Tag pushing", function( ply, key )
 		if ( key == IN_USE and !( RecentPush[ ply:UserID() ] ) ) then
 			local ent = ply:GetEyeTrace().Entity
 			if ( IsValid( ply ) and IsValid( ent ) ) then
@@ -23,7 +23,7 @@ if ( FRZ.PushEnabled or 1 == 2 ) then
 							ent:SetVelocity( Ang * 500 )
 							ent:ViewPunch( Angle( math.random( -30, 30 ), math.random( -30, 30 ), 0 ) )
 
-							ent:EmitSound( Sounds[ math.random( #Sounds ) ] )
+							ent:EmitSound( table.Random( Sounds ) )
 
 							RecentPush[ ply:UserID() ] = true
 

@@ -59,6 +59,16 @@ function GM:Think()
         end
     end
 
+    if ( table.Count( player.GetAll() ) <= 1 ) then
+        for _, ply in pairs( player.GetAll() ) do
+            if ( ply == FRZ.Freezer ) then
+                FRZ.EndRound( ROUND_FREEZER_WIN, FRZ.IntermissionTime )
+            else
+                FRZ.EndRound( ROUND_RUNNERS_WIN, FRZ.IntermissionTime )
+            end
+        end
+    end
+
     if ( table.Count( FRZ.PlayersLeft ) == 0 ) then
         FRZ.EndRound( ROUND_FREEZER_WIN, FRZ.IntermissionTime )
     end
@@ -191,7 +201,7 @@ function FRZ.StartRound( Time, BlindTime, Intermission )
         for _, ply in pairs( player.GetAll() ) do
             net.Start( "AbilityCD" )
                 net.WriteBool( timer.Exists( "Ability Cooldown " .. ply:EntIndex() ) )
-                net.WriteFloat( timer.TimeLeft( "Ability Cooldown " .. ply:EntIndex() ) or 0 )
+                ply:SetNWInt( "Ability Cooldown", timer.TimeLeft( "Ability Cooldown " .. ply:EntIndex() ) )
             net.Send( ply )
         end
 
