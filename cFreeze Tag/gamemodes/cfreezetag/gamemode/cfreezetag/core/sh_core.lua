@@ -1,5 +1,3 @@
--- I'm too lazy to add in comments, you do it.
-
 function GM:Initialize()
     FRZ.Freezer = nil
     FRZ.FrozenPlayers = {}
@@ -144,7 +142,7 @@ end
 
 function FRZ.Thaw( ply, thawer )
     if ( CLIENT ) then return end
-    if ( !ply.Frozen or ply.NextAction > CurTime() or ply == thawer or thawer.Frozen or ply == FRZ.Freezer ) then return end
+    if ( !ply.Frozen or ply.NextAction > CurTime() or ply == thawer or thawer.Frozen or ply == FRZ.Freezer or thawer == FRZ.Freezer ) then return end
 
     thawer:SetNWInt( "Thaws", thawer:GetNWInt( "Thaws" ) + 1 )
 
@@ -292,9 +290,9 @@ function FRZ.EndRound( Winner, Intermission )
     timer.Destroy( "Round Timer" )
 
     FRZ.RoundStatus = Winner
-    FRZ.Freezer = nil
 
     timer.Simple( 10, function()
+        FRZ.Freezer = nil
         FRZ.RoundStatus = ROUND_WAITING
 
         for _, ply in pairs( player.GetAll() ) do
