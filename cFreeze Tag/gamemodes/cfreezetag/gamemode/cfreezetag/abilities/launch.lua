@@ -6,5 +6,5 @@ Ability.Uses = 1
 Ability.OnCast = function( ply, tr )
     if ( CLIENT ) then return end
 
-    ply:SetVelocity( ply:GetAimVector() * 1000 )
+    ply:SetVelocity( ply:GetAimVector() * 800 )
 end
