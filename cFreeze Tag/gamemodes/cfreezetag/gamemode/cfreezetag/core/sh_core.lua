@@ -25,7 +25,7 @@ function GM:PlayerSpawn( ply )
     else
         ply:SetModel( "models/player/Group01/female_0" .. math.random( 1, 6 ) .. ".mdl" )
     end
-	
+
     ply:SetupHands()
     ply:SetPlayerColor( Vector( 1, 1, 1 ) )
 
@@ -56,14 +56,14 @@ function GM:Think()
     end
 
     for _, ply in pairs( player.GetAll() ) do
-        if ( IsValid( ply ) and !ply.Frozen and ply != FRZ.Freezer and !table.HasValue( FRZ.PlayersLeft, ply ) ) then
+        if ( IsValid( ply ) and ply.Frozen != true and ply != FRZ.Freezer and !table.HasValue( FRZ.PlayersLeft, ply ) ) then
             table.insert( FRZ.PlayersLeft, ply )
-        elseif ( IsValid( ply ) and ply.Frozen or ply == FRZ.Freezer ) then
+        elseif ( IsValid( ply ) and ply.Frozen == true or ply == FRZ.Freezer ) then
             table.RemoveByValue( FRZ.PlayersLeft, ply )
         end
     end
 
-    if ( table.Count( player.GetAll() ) <= 1 ) then
+    if ( table.Count( player.GetAll() ) <= 1 and FRZ.RoundStatus == ROUND_IN_PROGRESS ) then
         for _, ply in pairs( player.GetAll() ) do
             if ( ply == FRZ.Freezer ) then
                 FRZ.EndRound( ROUND_FREEZER_WIN, FRZ.IntermissionTime )
@@ -73,7 +73,7 @@ function GM:Think()
         end
     end
 
-    if ( table.Count( FRZ.PlayersLeft ) == 0 ) then
+    if ( table.Count( FRZ.PlayersLeft ) <= 0 and FRZ.RoundStatus == ROUND_IN_PROGRESS ) then
         FRZ.EndRound( ROUND_FREEZER_WIN, FRZ.IntermissionTime )
     end
 
@@ -91,7 +91,7 @@ function GM:Think()
 
     if ( FRZ.AbilitiesEnabled ) then
         for _, ply in pairs( player.GetAll() ) do
-            if ( ply:KeyPressed( IN_ATTACK2 ) and ply.Ability != nil and !ply.Frozen and ply:Alive() ) then
+            if ( ply:KeyPressed( IN_ATTACK2 ) and ply.Ability != nil and ply.Frozen != true and ply:Alive() ) then
                 local tr = {
                     start = ply:EyePos(),
                     endpos = ply:EyePos() + ply:EyeAngles():Forward() * 10000,
@@ -212,10 +212,10 @@ function FRZ.StartRound( Time, BlindTime, Intermission )
         if ( FRZ.StaminaEnabled ) then
             for _, ply in pairs( player.GetAll() ) do
                 net.Start( "Stamina" )
-		    if ( ply.Stamina != nil and ply.VeryTired != nil ) then
+                    if ( ply.Stamina != nil and ply.VeryTired != nil ) then
                         net.WriteFloat( ply.Stamina )
                         net.WriteBool( ply.VeryTired )
-		    end
+                    end
                 net.Send( ply )
             end
         end
