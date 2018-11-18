@@ -7,8 +7,9 @@ ENUMARATIONS:
     * TEAM_RUNNER - 1
     * TEAM_BOTH - 2
 
-BOOLEANS:
-    * PLAYER.Frozen - Is true if the player is frozen.
+FUNCTIONS:
+    * FRZ.Freeze( ply, freezer )                                    -- Freezes a player.
+    * FRZ.Thaw( ply, thawer )                                       -- Thaws a player.
 
 Ability.Name = "SNOWBALL"                                           -- The name of your ability.
 Ability.Icon = "cfreeze_tag/icons/ability_snowball.png"             -- The icon of your ability.
