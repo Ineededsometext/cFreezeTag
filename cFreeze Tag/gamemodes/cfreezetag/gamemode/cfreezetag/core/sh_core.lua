@@ -59,6 +59,16 @@ function GM:Think()
         end
     end
 
+    if ( table.Count( player.GetAll() ) <= 1 ) then
+        for _, ply in pairs( player.GetAll() ) do
+            if ( ply == FRZ.Freezer ) then
+                FRZ.EndRound( ROUND_FREEZER_WIN, FRZ.IntermissionTime )
+            else
+                FRZ.EndRound( ROUND_RUNNERS_WIN, FRZ.IntermissionTime )
+            end
+        end
+    end
+
     if ( table.Count( FRZ.PlayersLeft ) == 0 ) then
         FRZ.EndRound( ROUND_FREEZER_WIN, FRZ.IntermissionTime )
     end
@@ -191,11 +201,17 @@ function FRZ.StartRound( Time, BlindTime, Intermission )
         for _, ply in pairs( player.GetAll() ) do
             net.Start( "AbilityCD" )
                 net.WriteBool( timer.Exists( "Ability Cooldown " .. ply:EntIndex() ) )
-
-                if ( timer.Exists( "Ability Cooldown " .. ply:EntIndex() ) ) then
-                    net.WriteFloat( timer.TimeLeft( "Ability Cooldown " .. ply:EntIndex() ) )
-                end
+                ply:SetNWInt( "Ability Cooldown", timer.TimeLeft( "Ability Cooldown " .. ply:EntIndex() ) )
             net.Send( ply )
+        end
+
+        if ( FRZ.StaminaEnabled ) then
+            for _, ply in pairs( player.GetAll() ) do
+                net.Start( "Stamina" )
+                    net.WriteFloat( ply.Stamina )
+                    net.WriteBool( ply.VeryTired )
+                net.Send( ply )
+            end
         end
         
         if ( FRZ.AbilitiesEnabled ) then
@@ -302,6 +318,7 @@ if ( SERVER ) then
     util.AddNetworkString( "Timers" )
     util.AddNetworkString( "Ability" )
     util.AddNetworkString( "AbilityCD" )
+    util.AddNetworkString( "Stamina" )
 end
 
 function CheckCollision( ply )
