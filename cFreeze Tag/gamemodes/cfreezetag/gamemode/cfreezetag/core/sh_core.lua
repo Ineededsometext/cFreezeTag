@@ -19,7 +19,13 @@ end
 function GM:PlayerSpawn( ply )
     if ( CLIENT ) then return end
 
-    ply:SetModel( "models/player/Group01/male_0" .. math.random( 1, 9 ) .. ".mdl" )
+    local chance = math.random( 1, 2 )
+    if ( chance == 1 ) then 
+        ply:SetModel( "models/player/Group01/male_0" .. math.random( 1, 9 ) .. ".mdl" )
+    else
+        ply:SetModel( "models/player/Group01/female_0" .. math.random( 1, 6 ) .. ".mdl" )
+    end
+	
     ply:SetupHands()
     ply:SetPlayerColor( Vector( 1, 1, 1 ) )
 
