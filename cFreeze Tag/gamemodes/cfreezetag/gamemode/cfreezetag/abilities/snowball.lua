@@ -4,7 +4,9 @@ Ability.Team = TEAM_BOTH
 
 Ability.Uses = 1
 Ability.OnCast = function( ply, tr )
-    if ( CLIENT or ply.Frozen ) then return end
+    if ( CLIENT ) then return end
+	
+    ply:EmitSound( "weapons/iceaxe/iceaxe_swing1.wav" )
 
     local snowball = ents.Create( "snowball" )
     snowball:SetPos( ply:EyePos() + ( ply:GetAimVector() * 16 ) )
