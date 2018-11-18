@@ -15,6 +15,8 @@ The github repository will be updated much sooner than the workshop version.
 
 [Here's the workshop version](https://github.com/Ineededsometext/cFreezeTag/archive/master.zip)
 
+[Want to try out experimental updates?](https://github.com/Ineededsometext/cFreezeTag/archive/experimental.zip)
+
 
 # Installing cFreezeTag
 1. Download cFreezeTag using the clone or download button.
